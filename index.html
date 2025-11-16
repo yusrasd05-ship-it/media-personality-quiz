@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>اختبار شخصيتك الإعلامية 🎙️ | جامعة بيت لحم</title>
+  <title>AI بوعي | فعالية التربية الإعلامية – جامعة بيت لحم</title>
   <style>
     :root {
       --navy: #0b1b3f;
@@ -16,295 +16,122 @@
     }
     body {
       font-family: "Tajawal", sans-serif;
-      text-align: center;
-      margin: 0;
-      overflow-x: hidden;
+      margin: 0; padding: 0;
       transition: background 0.5s, color 0.5s;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
     }
-    body.light {
-      background: var(--light-bg);
-      color: var(--light-text);
+    body.light { background: var(--light-bg); color: var(--light-text); }
+    body.dark  { background: var(--dark-bg); color: var(--dark-text); }
+
+    header, footer {
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
     }
-    body.dark {
-      background: var(--dark-bg);
-      color: var(--dark-text);
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      flex-wrap: wrap;
-    }
-    .logo {
-      width: 120px;
-      border-radius: 10px;
-      background: var(--white);
-      padding: 5px;
-    }
+    .logo { width: 120px; background: var(--white); border-radius: 10px; padding: 6px; }
     .mode-toggle {
-      background: var(--gold);
-      color: var(--navy);
-      border: none;
-      padding: 10px 20px;
-      border-radius: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      background: var(--gold); color: var(--navy); border: none; border-radius: 14px;
+      padding: 10px 16px; font-weight: bold; cursor: pointer; transition: transform .2s;
     }
-    .mode-toggle:hover {
-      transform: scale(1.05);
-      opacity: 0.9;
+    .mode-toggle:hover { transform: scale(1.03); }
+
+    .hero {
+      text-align: center; padding: 24px; position: relative;
     }
-    h1 {
-      font-size: 1.8em;
-      margin: 10px 0;
+    h1 { margin: 10px 0 4px; font-size: 2rem; }
+    h2 { margin: 0 0 16px; font-size: 1.2rem; color: var(--gold); }
+    .card {
+      background: var(--white); color: var(--navy);
+      max-width: 780px; margin: 16px auto; padding: 22px;
+      border-radius: 18px; box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      transition: background .5s, color .5s;
     }
-    .quiz-container {
-      background: var(--white);
-      color: var(--navy);
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      max-width: 600px;
-      margin: 20px auto;
-      transition: background 0.5s, color 0.5s, transform 0.3s ease;
-      animation: fadeSlide 0.6s ease;
+    body.dark .card { background: #142857; color: var(--white); box-shadow: 0 6px 18px rgba(255,255,255,.08); }
+
+    .start-btn {
+      display: inline-block; margin-top: 16px;
+      background: var(--gold); color: var(--navy);
+      padding: 12px 22px; border-radius: 16px; text-decoration: none; font-weight: bold;
+      transition: transform .2s, opacity .2s;
     }
-    body.dark .quiz-container {
-      background: #142857;
-      color: var(--white);
-    }
-    .question {
-      font-weight: bold;
-      margin: 20px 0 10px;
-    }
-    .option {
-      display: block;
-      background: #f9f9f9;
-      margin: 8px auto;
-      padding: 12px;
-      border-radius: 10px;
-      width: 90%;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: 2px solid transparent;
-      font-size: 1em;
-    }
-    body.dark .option {
-      background: #1f3462;
-      color: var(--white);
-    }
-    .option:hover {
-      border: 2px solid var(--gold);
-      transform: scale(1.03);
-    }
-    #result {
-      margin-top: 20px;
-      font-size: 1.2em;
-      background: #fff5cc;
-      border-radius: 15px;
-      padding: 20px;
-      display: none;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      animation: fadeSlide 0.6s ease;
-    }
-    body.dark #result {
-      background: #1f3462;
-      color: var(--white);
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 15px;
-      background-color: var(--gold);
-      color: var(--navy);
-      font-size: 1em;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    button:hover {
-      opacity: 0.9;
-      transform: scale(1.05);
-    }
-    .progress {
-      margin: 10px 0;
-      font-size: 1em;
-      color: var(--gold);
-      font-weight: bold;
-    }
-    @keyframes fadeSlide {
-      from {opacity: 0; transform: translateY(15px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    /* Floating icons */
+    .start-btn:hover { transform: translateY(-2px); opacity: .95; }
+
     .floating-icon {
-      position: fixed;
-      font-size: 2rem;
-      opacity: 0.15;
-      animation: floatUp 12s linear infinite;
-      z-index: 0;
+      position: fixed; font-size: 2.4rem; opacity: .13; z-index: 0;
+      animation: floatUp 14s linear infinite;
     }
-    @keyframes floatUp {
-      0% {transform: translateY(100vh) rotate(0deg);}
-      100% {transform: translateY(-120vh) rotate(360deg);}
-    }
-    .icon1 {left: 10%; animation-delay: 0s;}
-    .icon2 {left: 30%; animation-delay: 3s;}
-    .icon3 {left: 50%; animation-delay: 6s;}
-    .icon4 {left: 70%; animation-delay: 9s;}
-    .icon5 {left: 85%; animation-delay: 12s;}
-    @media (max-width: 600px) {
-      .option {font-size: 0.95em; padding: 10px;}
-      h1 {font-size: 1.4em;}
-      button, .mode-toggle {padding: 8px 15px; font-size: 0.9em;}
-      .logo {width: 90px;}
+    @keyframes floatUp { from { transform: translateY(110vh) rotate(0deg);} to { transform: translateY(-120vh) rotate(360deg);} }
+    .icon1 { left: 12%; animation-delay: 0s;}
+    .icon2 { left: 35%; animation-delay: 4s;}
+    .icon3 { left: 58%; animation-delay: 8s;}
+    .icon4 { left: 80%; animation-delay: 10s;}
+
+    .content { position: relative; z-index: 1; }
+    footer { gap: 8px; border-top: 1px solid rgba(0,0,0,.06); }
+    body.dark footer { border-top-color: rgba(255,255,255,.12); }
+    small a { color: inherit; text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .logo { width: 90px; }
+      h1 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body class="light">
-
-  <!-- Floating background icons -->
+  <!-- Floating icons -->
   <div class="floating-icon icon1">🎤</div>
   <div class="floating-icon icon2">📸</div>
   <div class="floating-icon icon3">🎤</div>
   <div class="floating-icon icon4">📸</div>
-  <div class="floating-icon icon5">🎤</div>
 
-  <header>
+  <header class="content">
     <img src="BU-logo-02.png" alt="شعار جامعة بيت لحم" class="logo">
-    <button class="mode-toggle" id="modeButton" onclick="toggleMode()">🌙 غيّر إلى الوضع الداكن</button>
+    <button class="mode-toggle" id="modeBtn" onclick="toggleMode()">🌙 غيّر إلى الوضع الداكن</button>
   </header>
 
-  <h1>🎓 اختبار شخصيتك الإعلامية 🎙️</h1>
-  <p>مرحبًا بك في اختبار <strong>جامعة بيت لحم</strong> لاكتشاف نوع شخصيتك الإعلامية!</p>
+  <main class="hero content">
+    <h1>AI بوعي</h1>
+    <h2>فعالية ضمن تدريب <strong>معهد الشراكة</strong> ومساق <strong>العلاقات العامة</strong> عن التربية الإعلامية</h2>
 
-  <div class="progress" id="progress">السؤال 1 من 10</div>
-  <div class="quiz-container" id="quiz"></div>
+    <div class="card">
+      <p>
+        نهدف في فعالية <strong>AI بوعي</strong> إلى تعزيز مهارات التربية الإعلامية لدى طلبة الجامعة
+        عبر تجربة تفاعلية ممتعة تعرّفك على <em>شخصيتك الإعلامية</em> وكيفية التعامل الذكي مع المحتوى
+        في زمن الذكاء الاصطناعي.
+      </p>
+      <p>
+        بإشراف وتنظيم: <strong>جامعة بيت لحم</strong> — القائمون على الفعالية:
+        <strong>يسرى سند، تسنيم شويكي، ندى العيسة، رغد صلاحات</strong> — تخصص الإعلام التفاعلي.
+      </p>
 
-  <div id="result"></div>
+      <a class="start-btn" href="quiz.html">ابدأ الاختبار الآن</a>
+    </div>
+  </main>
+
+  <footer class="content">
+    <small>© 2025 إعداد: <strong>يسرى سند</strong> — جامعة بيت لحم. جميع الحقوق محفوظة.</small>
+    <small>| <a href="quiz.html">الانتقال مباشرة إلى الاختبار</a></small>
+  </footer>
 
   <script>
-    const quizData = [
-      { q: "1. لما تشوف خبر مثير على السوشيال ميديا، شو أول شيء بتعمل؟",
-        a: ["أقرأ التعليقات قبل ما أصدق الخبر", "أشارك الرابط فورًا", "أبحث عن المصدر الأصلي", "أتجاهله تمامًا"],
-        type: ["متفاعل", "ناشر", "واعي", "متلقي"]
-      },
-      { q: "2. أكثر وقتك على الإنترنت بتقضيه في:",
-        a: ["تصفح الترندات", "صناعة المحتوى", "مشاهدة محتوى تعليمي", "نقاشات أونلاين"],
-        type: ["متلقي", "ناشر", "واعي", "متفاعل"]
-      },
-      { q: "3. لو شفت فيديو فيه معلومة غلط، شو بتعمل؟",
-        a: ["أعلق لتصحيح المعلومة", "أتجاهله", "أبلغ عنه", "أشارك مع ملاحظة"],
-        type: ["متفاعل", "متلقي", "واعي", "ناشر"]
-      },
-      { q: "4. كيف تختار المصادر اللي تثق فيها؟",
-        a: ["شهرة الموقع", "اللي يوافق رأيي", "أتحقق من أكثر من مصدر", "حسب التفاعل"],
-        type: ["متلقي", "ناشر", "واعي", "متفاعل"]
-      },
-      { q: "5. لو طُلب منك تنتج محتوى عن قضية مجتمعية، شو تفكر أولًا؟",
-        a: ["كيف ينتشر", "الدقة بالمعلومة", "تحفيز التفاعل", "أعبّر عن رأيي"],
-        type: ["ناشر", "واعي", "متفاعل", "متلقي"]
-      },
-      { q: "6. كيف تتعامل مع الإعلانات؟",
-        a: ["أتجاهلها", "أضغط إذا شدتني", "أحللها", "أشاركها لو عجبتني"],
-        type: ["متلقي", "ناشر", "واعي", "متفاعل"]
-      },
-      { q: "7. في نقاش أونلاين وشخص خالفك الرأي، شو تعمل؟",
-        a: ["أرد بهدوء", "أترك النقاش", "أجادل بحماس", "أفتح نقاش عام"],
-        type: ["واعي", "متلقي", "ناشر", "متفاعل"]
-      },
-      { q: "8. لما تشوف ترند جديد، شو بتسوي؟",
-        a: ["أشارك فورًا", "أتابعه فقط", "أفهم خلفيته", "أخلق ترند خاص بي"],
-        type: ["ناشر", "متلقي", "واعي", "متفاعل"]
-      },
-      { q: "9. أكثر شيء يهمك بالمحتوى:",
-        a: ["الترفيه", "المعلومة", "التفاعل", "الإبداع"],
-        type: ["متلقي", "واعي", "متفاعل", "ناشر"]
-      },
-      { q: "10. لو عندك منصة إعلامية، شو بتكون رسالتك؟",
-        a: ["الوعي والتحقق", "الإلهام والإبداع", "نقاشات الشباب", "نقل الترندات"],
-        type: ["واعي", "ناشر", "متفاعل", "متلقي"]
-      },
-    ];
-
-    const quizContainer = document.getElementById("quiz");
-    const resultDiv = document.getElementById("result");
-    const progress = document.getElementById("progress");
-    const modeButton = document.getElementById("modeButton");
-
-    let currentQuestion = 0;
-    let answers = [];
-    let scores = { "واعي": 0, "متفاعل": 0, "ناشر": 0, "متلقي": 0 };
-
-    function loadQuestion() {
-      const q = quizData[currentQuestion];
-      progress.textContent = `السؤال ${currentQuestion + 1} من ${quizData.length}`;
-      quizContainer.innerHTML = `
-        <div class="question">${q.q}</div>
-        ${q.a.map((opt, i) => `<div class="option" onclick="selectAnswer(${i})">${opt}</div>`).join("")}
-        ${currentQuestion > 0 ? `<button onclick="goBack()">↩️ تراجع</button>` : ""}
-      `;
+    // Theme toggle with persistence
+    const body = document.body;
+    const btn  = document.getElementById('modeBtn');
+    function applyLabel() {
+      btn.textContent = body.classList.contains('dark') ? '🌞 غيّر إلى الوضع الفاتح' : '🌙 غيّر إلى الوضع الداكن';
     }
-
-    function selectAnswer(i) {
-      const q = quizData[currentQuestion];
-      answers[currentQuestion] = i;
-      const selectedType = q.type[i];
-      scores[selectedType]++;
-      currentQuestion++;
-      if (currentQuestion < quizData.length) {
-        loadQuestion();
-      } else {
-        showResult();
-      }
-    }
-
-    function goBack() {
-      const q = quizData[currentQuestion - 1];
-      const prevAnswerIndex = answers[currentQuestion - 1];
-      const prevType = q.type[prevAnswerIndex];
-      scores[prevType]--;
-      currentQuestion--;
-      loadQuestion();
-    }
-
-    function showResult() {
-      quizContainer.style.display = "none";
-      const maxType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-      const descriptions = {
-        "واعي": "🧠 المتلقي الواعي: تتحقق من المعلومة، وتفكر قبل المشاركة. أنت قدوة في التفكير النقدي.",
-        "متفاعل": "💬 المتفاعل الاجتماعي: تحب النقاش والتفاعل، وتخلق حوارات حول القضايا.",
-        "ناشر": "🎥 الناشر المبدع: صانع محتوى بطبيعتك، تحب الإبداع والتأثير على الآخرين.",
-        "متلقي": "📱 المتأثر بالترند: تتابع باستمرار وتواكب الجديد، لكن تحتاج قليل وعي قبل المشاركة."
-      };
-      resultDiv.style.display = "block";
-      resultDiv.innerHTML = `<h2>${descriptions[maxType]}</h2><button onclick="restartQuiz()">🔁 إعادة الاختبار</button>`;
-    }
-
-    function restartQuiz() {
-      currentQuestion = 0;
-      answers = [];
-      scores = { "واعي": 0, "متفاعل": 0, "ناشر": 0, "متلقي": 0 };
-      resultDiv.style.display = "none";
-      quizContainer.style.display = "block";
-      loadQuestion();
-    }
-
     function toggleMode() {
-      document.body.classList.toggle("dark");
-      document.body.classList.toggle("light");
-      if (document.body.classList.contains("dark")) {
-        modeButton.textContent = "🌞 غيّر إلى الوضع الفاتح";
-      } else {
-        modeButton.textContent = "🌙 غيّر إلى الوضع الداكن";
-      }
+      body.classList.toggle('dark'); body.classList.toggle('light');
+      localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+      applyLabel();
     }
-
-    loadQuestion();
+    (function initTheme(){
+      const saved = localStorage.getItem('theme') || 'light';
+      body.classList.remove('light','dark'); body.classList.add(saved);
+      applyLabel();
+    })();
   </script>
-
 </body>
 </html>
